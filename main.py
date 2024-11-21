@@ -1,14 +1,25 @@
+from logging import info
 import pygame
+from pygame.locals import *
 import views.menu as menu
 import routes
+import services.utils as utils
+import pygame.mixer as mixer
 
+#Inicialize pygame
 pygame.init()
-screen = pygame.display.set_mode((800, 600))
+
+screen = pygame.display.set_mode((1920, 1080), RESIZABLE | FULLSCREEN)
 clock = pygame.time.Clock()
 running = True
 dt = 0
+pygame.display.set_caption("Trucaos")
 
-color = "#000000"
+def music():
+    music = mixer.Sound("assets/music/aria_math.mp3")
+    music.play()
+
+#music()
 
 while running:
     
@@ -21,6 +32,7 @@ while running:
 
     pygame.display.flip()
     dt = clock.tick(60) / 1000
-
+    
+    
 
 pygame.quit()
