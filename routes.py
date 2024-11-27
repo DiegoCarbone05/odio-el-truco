@@ -1,6 +1,8 @@
 import views.menu as menu
+import views.settings as sett
 
-def navigate(path:str, screen):
-    match path:
-        case "menu":
-            menu.init(screen)
+path = "menu"
+            
+def navigate(route:str):
+    path = route
+

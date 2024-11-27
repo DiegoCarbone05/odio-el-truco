@@ -1,15 +1,15 @@
-from logging import info
 import pygame
 from pygame.locals import *
-import views.menu as menu
-import routes
-import services.utils as utils
+import views
 import pygame.mixer as mixer
+
+import views.menu
+import views.settings
 
 #Inicialize pygame
 pygame.init()
 
-screen = pygame.display.set_mode((1920, 1080), RESIZABLE | FULLSCREEN)
+screen = pygame.display.set_mode((1280, 720), RESIZABLE)
 clock = pygame.time.Clock()
 running = True
 dt = 0
@@ -19,7 +19,11 @@ def music():
     music = mixer.Sound("assets/music/aria_math.mp3")
     music.play()
 
-#music()
+path = "menu"
+
+def set_path(new_path:str):
+    global path
+    path = new_path
 
 while running:
     
@@ -27,8 +31,31 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             
-    #Parametros: Ruta y control de pantalla de pygame
-    routes.navigate("menu", screen)
+       
+    button_list = [
+        {
+            "text":"Jugar",
+            "callback":lambda: print("Jugar")
+        },
+        {
+            "text":"Anotaciones",
+            "callback":lambda: print("Anotaciones")
+        },
+        {
+            "text":"Ajustes",
+            "callback":lambda: set_path("sett"),
+        },
+        {
+            "text":"Salir",
+            "callback":lambda: pygame.quit()
+        },
+    ]
+    
+    if path == "menu":
+        views.menu.init(screen, button_list)
+    if path == "sett":
+        views.settings.init(screen)
+
 
     pygame.display.flip()
     dt = clock.tick(60) / 1000
