@@ -1,8 +1,4 @@
-import views.menu as menu
-import views.settings as sett
-
 path = "menu"
-            
-def navigate(route:str):
-    path = route
-
+def set_path(new_path:str):
+    global path
+    path = new_path

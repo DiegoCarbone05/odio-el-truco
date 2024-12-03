@@ -1,4 +1,8 @@
 import pygame
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+import routes
 
 #------------------------------------------------------------------------------VARIABLES
 btn = pygame.image.load("assets/ui/btn.png") # BTN Texture
@@ -40,10 +44,12 @@ def menu_button_large(screen, positions, text:str, callback)-> None:
     if obj.collidepoint(pos):
         texture = pygame.transform.scale(btn_selected, (obj.width, obj.height))
         mouse_buttons = pygame.mouse.get_pressed()
+        
         if mouse_buttons[0]:
             callback()
 
     screen.blit(texture, obj.topleft)
+    
     
     font_size = int((positions[3] / 100) * 37) 
     font = pygame.font.Font("assets/fonts/minecraft_font.ttf", font_size)
@@ -59,8 +65,8 @@ def menu_button_large(screen, positions, text:str, callback)-> None:
     
     text_rect = text_surface.get_rect(center=((positions[0] + positions[2] // 2), positions[1]+((positions[3] / 2) - (font_size / 4))))
     screen.blit(text_surface, text_rect)
-
-def load_buttons(screen, buttons)-> None:
+    
+def load_buttons(screen)-> None:
     info = pygame.display.Info()
     wt = (info.current_w / 100) * 30
     ht = (info.current_w / 100) * 3.1
@@ -70,8 +76,27 @@ def load_buttons(screen, buttons)-> None:
     
     pos = [x, y, wt, ht]
     isFirstButton = True
+                
+    button_list = [
+        {
+            "text":"Jugar",
+            "callback":lambda: routes.set_path("play")
+        },
+        {
+            "text":"Anotaciones",
+            "callback":lambda: print("Anotaciones")
+        },
+        {
+            "text":"Ajustes",
+            "callback":lambda: routes.set_path("sett"),
+        },
+        {
+            "text":"Salir",
+            "callback":lambda: pygame.quit()
+        },
+    ]
     
-    for item in buttons:
+    for item in button_list:
         if isFirstButton:
             menu_button_large(screen, pos, item["text"], item["callback"])
         else:
@@ -82,8 +107,8 @@ def load_buttons(screen, buttons)-> None:
     
     
 #------------------------------------------------------------------------------INIT-MODULE
-def init(screen, btns)-> None:
+def init(screen)-> None:
     load_background(screen)
     menu_title(screen) 
-    load_buttons(screen, btns)
+    load_buttons(screen)
     
