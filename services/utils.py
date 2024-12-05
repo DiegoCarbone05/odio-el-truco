@@ -1,3 +1,5 @@
+import pygame.mixer as mixer
+
 #----------------------------------VARIABLES
 BTN_PRIMARY_COLOR = {
     "primary":"#3689AD",
@@ -19,3 +21,17 @@ BTN_SUCCESS_COLOR = {
     "in_border":"#70AE61",
     "btn_shadow":"#3C6035"
 }
+
+RED = "#FE3F3F"
+GREEN = "#3FFE3F"
+BLUE = "#3FFEFE"
+
+mixer.init()
+mixer.music.load("assets/music/click.mp3")
+
+def song_play():
+    mixer.music.play()
+    
+def song_pause():
+    mixer.music.pause()
+    

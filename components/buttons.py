@@ -1,6 +1,8 @@
 import pygame
 import services.utils as utils
 
+
+isClicked = False
 def flat(screen, callback, cords:tuple=(0, 0), btn_width:int=0, text:str="Button", style=utils.BTN_PRIMARY_COLOR):
     #------------------Text
     font_size = 16 
@@ -21,8 +23,17 @@ def flat(screen, callback, cords:tuple=(0, 0), btn_width:int=0, text:str="Button
     pygame.draw.rect(screen, style["btn_shadow"], pygame.Rect(btn.bottomleft[0], btn.bottomleft[1], relative_btn_width, 4), width=2)
     screen.blit(text_surface, (btn.center[0] - text_surface.get_width() / 2, btn.center[1] - text_surface.get_height() / 2))
     
+    global isClicked
+    
     pos = pygame.mouse.get_pos()
+    
     if btn.collidepoint(pos):
         mouse_buttons = pygame.mouse.get_pressed()
-        if mouse_buttons[0]:
-            callback()
+        if isClicked == False:
+            if mouse_buttons[0]:
+                callback()
+                isClicked = True
+        else:
+            if mouse_buttons[0] == False:
+                isClicked = False
+                    

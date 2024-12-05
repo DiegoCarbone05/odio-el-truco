@@ -103,12 +103,9 @@ def load_buttons(screen)-> None:
             pos = [pos[0], (pos[1] + pos[3] + gap), pos[2], pos[3]]
             menu_button_large(screen, pos, item["text"], item["callback"])
         isFirstButton = False
-        
-    
     
 #------------------------------------------------------------------------------INIT-MODULE
 def init(screen)-> None:
     load_background(screen)
     menu_title(screen) 
     load_buttons(screen)
-    

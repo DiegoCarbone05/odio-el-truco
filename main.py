@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
-import pygame.mixer as mixer
 import routes
+import services.utils as utils
 
 # Views imports
 import views.menu
@@ -18,6 +18,8 @@ pygame.display.set_caption("Trucaos")
 clock = pygame.time.Clock()
 running = True
 dt = 0
+
+utils.song_play()
 
 while running:
     
